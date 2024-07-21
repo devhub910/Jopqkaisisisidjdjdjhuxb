@@ -2385,89 +2385,96 @@ end
 
 end)
 
-Game:Button("قتل الشرطي",function()
-local Players = game:GetService("Players")
-local RunService = game:GetService("RunService")
+Game:Button("قتل الشرطي", function()
+    local Players = game:GetService("Players")
+    local RunService = game:GetService("RunService")
 
-local function findPlayersWithGun()
-    local playersWithGun = {}
+    local function findPlayersWithGun()
+        local playersWithGun = {}
 
-    for , player in pairs(Players:GetPlayers()) do
-        local character = player.Character
-        if character then
-            local backpack = player.Backpack
-            local gun = backpack and backpack:FindFirstChild("Gun")
-            if not gun then
-                gun = character:FindFirstChild("Gun")
-            end
+        for _, player in pairs(Players:GetPlayers()) do
+            local character = player.Character
+            if character then
+                local backpack = player.Backpack
+                local gun = backpack and backpack:FindFirstChild("Gun")
+                if not gun then
+                    gun = character:FindFirstChild("Gun")
+                end
 
-            if gun then
-                table.insert(playersWithGun, player)
+                if gun then
+                    table.insert(playersWithGun, player)
+                end
             end
         end
+
+        return playersWithGun
     end
 
-    return playersWithGun
-end
+    local playersWithGun = findPlayersWithGun()
 
-local playersWithGun = findPlayersWithGun()
-
-for , player in ipairs(playersWithGun) do
-    local Target = player
-    local YEET = Instance.new('BodyThrust', player.Character.HumanoidRootPart)
-    YEET.Force = Vector3.new(9999, 9999, 9999)
-    YEET.Name = "YEET"
-    repeat
-        player.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame
-        YEET.Location = Target.Character.HumanoidRootPart.Position
-        RunService.Heartbeat:Wait()
-    until not Target.Character:FindFirstChild("Head")
-end
-
-
+    for _, player in ipairs(playersWithGun) do
+        local Target = player
+        local humanoidRootPart = Target.Character and Target.Character:FindFirstChild("HumanoidRootPart")
+        if humanoidRootPart then
+            local YEET = Instance.new('BodyThrust')
+            YEET.Parent = humanoidRootPart
+            YEET.Force = Vector3.new(9999, 9999, 9999)
+            YEET.Name = "YEET"
+            repeat
+                if humanoidRootPart then
+                    humanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame
+                    YEET.Location = Target.Character.HumanoidRootPart.Position
+                end
+                RunService.Heartbeat:Wait()
+            until not Target.Character:FindFirstChild("Head")
+        end
+    end
 end)
 
+Game:Button("قتل القاتل", function()
+    local Players = game:GetService("Players")
+    local RunService = game:GetService("RunService")
 
-Game:Button("قتل القاتل",function()
+    local function findPlayersWithKnife()
+        local playersWithKnife = {}
 
-local Players = game:GetService("Players")
-local RunService = game:GetService("RunService")
+        for _, player in pairs(Players:GetPlayers()) do
+            local character = player.Character
+            if character then
+                local backpack = player.Backpack
+                local knife = backpack and backpack:FindFirstChild("Knife")
+                if not knife then
+                    knife = character:FindFirstChild("Knife")
+                end
 
-local function findPlayersWithKnife()
-    local playersWithKnife = {}
-
-    for , player in pairs(Players:GetPlayers()) do
-        local character = player.Character
-        if character then
-            local backpack = player.Backpack
-            local knife = backpack and backpack:FindFirstChild("Knife")
-            if not knife then
-                knife = character:FindFirstChild("Knife")
-            end
-
-            if knife then
-                table.insert(playersWithKnife, player)
+                if knife then
+                    table.insert(playersWithKnife, player)
+                end
             end
         end
+
+        return playersWithKnife
     end
 
-    return playersWithKnife
-end
+    local playersWithKnife = findPlayersWithKnife()
 
-local playersWithKnife = findPlayersWithKnife()
-
-for , player in ipairs(playersWithKnife) do
-    local Target = player
-    local YEET = Instance.new('BodyThrust', player.Character.HumanoidRootPart)
-    YEET.Force = Vector3.new(9999, 9999, 9999)
-    YEET.Name = "YEET"
-    repeat
-        player.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame
-        YEET.Location = Target.Character.HumanoidRootPart.Position
-        RunService.Heartbeat:Wait()
-    until not Target.Character:FindFirstChild("Head")
-end
-
+    for _, player in ipairs(playersWithKnife) do
+        local Target = player
+        local humanoidRootPart = Target.Character and Target.Character:FindFirstChild("HumanoidRootPart")
+        if humanoidRootPart then
+            local YEET = Instance.new('BodyThrust')
+            YEET.Parent = humanoidRootPart
+            YEET.Force = Vector3.new(9999, 9999, 9999)
+            YEET.Name = "YEET"
+            repeat
+                if humanoidRootPart then
+                    humanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame
+                    YEET.Location = Target.Character.HumanoidRootPart.Position
+                end
+                RunService.Heartbeat:Wait()
+            until not Target.Character:FindFirstChild("Head")
+        end
+    end
 end)
 
 
